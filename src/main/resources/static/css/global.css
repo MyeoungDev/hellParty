@@ -1,0 +1,23 @@
+@font-face{
+    font-family: 'medium';
+    src: url(/font/NotoSansKR-Medium.otf);
+}
+
+@font-face{
+    font-family: 'regular';
+    src: url(/font/NotoSansKR-Regular.otf);
+}
+
+@font-face{
+    font-family: 'light';
+    src: url(/font/NotoSansKR-Light.otf);
+}
+
+* {
+    box-sizing: border-box;
+    /* background-color: #f8f9fa; */
+}
+
+#container{
+    height: 100vh;
+}

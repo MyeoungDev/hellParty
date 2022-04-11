@@ -1,0 +1,35 @@
+.header{
+    font-family: "medium";
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.header_columns{
+    display: flex;
+}
+
+.header_columns_column{
+    width: 100px;
+    text-align: center;
+    font-size: 20px;
+}
+
+
+.header_columns_column a{
+    text-decoration: none;
+    color: #000;
+}
+
+.header_columns:last-child{
+    padding-right: 50px;
+}
+
+/* style */
+
+.header_logo{
+    padding-left: 50px;
+    height: 65px;
+}

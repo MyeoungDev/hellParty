@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/reset.css">
+
+    <link rel="stylesheet" href="/css/join.css">
+</head>
+<body>
+
+    <div id="container">
+        <div class="join">
+            <div class="join_columns">
+                <form action="joinAction" method="post">
+                    <div class="join_columns_column logo">
+                        <img src="/img/헬스파티ver2.png" alt="" class="join_logo">
+                    </div>
+                    <div class="join_columns_column">
+                        <p class="join_column_text">아이디</p>
+                        <input type="text" name="userId" class="join_input">
+                        <p class="join_warn">존재하는 아이디입니다.</p>
+                    </div>
+                    
+                    <div class="join_columns_column">
+                        <p class="join_column_text">비밀번호</p>
+                        <input type="text" name="userPw" class="join_input">
+                    </div>
+
+                    <div class="join_columns_column">
+                        <p class="join_column_text">비밀번호 확인</p>
+                        <input type="text" class="join_input">
+                        <p class="join_warn">비밀번호가 일치하지 않습니다.</p>
+                    </div>
+
+                    <div class="join_columns_column">
+                        <p class="join_column_text">이름</p>
+                        <input type="text" name="userName" class="join_input">
+                    </div>
+
+                    <div class="join_columns_column">
+                        <p class="join_column_text">이메일</p>
+                        <div class="join_mail_box">
+                        <input type="text" name="userEmail" class="join_email">
+                        <button type="button" class="join_email_btn submit">인증번호 전송</button>
+                        </div>
+                        <div class="email_mailCheck_box">
+                            <input type="text" class="join_email check">
+                            <button type="button" class="join_email_btn check">확인</button>
+                            <p class="join_warn">인증번호가 일치하지 않습니다.</p>
+                            <p class="join_warn success">인증번호가 일치합니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="join_columns_column">
+                        <button type="submit" class="join_submit_btn">가입하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
