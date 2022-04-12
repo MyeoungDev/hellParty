@@ -7,4 +7,10 @@
         (userId, userPw, userName, userEmail, regDate ,adminCk)
         VALUES(#{userId}, #{userPw}, #{userName}, #{userEmail}, NOW() ,0)
     </insert>
+
+    <select id="idCheck" resultType="int">
+        SELECT COUNT(*)
+        FROM hellparty_user
+        WHERE userId = #{userId}
+    </select>
 </mapper>

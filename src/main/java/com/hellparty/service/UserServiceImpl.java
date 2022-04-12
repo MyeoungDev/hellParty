@@ -18,4 +18,10 @@ public class UserServiceImpl implements UserService {
         log.info("Service userJoin.........");
         userMapper.userJoin(userVO);
     }
+
+    @Override
+    public int idCheck(String userId) throws Exception {
+        log.info("Service idCheck...........");
+        return userMapper.idCheck(userId);
+    }
 }

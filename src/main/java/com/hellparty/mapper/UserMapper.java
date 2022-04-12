@@ -9,4 +9,7 @@ public interface UserMapper {
     /* 회원가입 */
     public void userJoin(UserVO userVO);
 
+    /* 아이디 중복 체크  return 1: 중복 O, 0: 중복 X*/
+    public int idCheck(String userId);
+
 }

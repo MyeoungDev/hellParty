@@ -4,9 +4,11 @@ import com.hellparty.domain.UserVO;
 import com.hellparty.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @Slf4j
@@ -40,4 +42,20 @@ public class UserController {
 
         return "redirect:/index";
     }
+
+    @PostMapping(value = "/join/idCheck")
+    @ResponseBody
+    public String idCheck(String userId) throws Exception{
+        log.info("Controller idCheck........");
+        log.info("userId" + userId);
+
+        int result = userService.idCheck(userId);
+
+        if (result == 0) {
+            return "success";
+        } else {
+            return "fail";
+        }
+    }
+
 }

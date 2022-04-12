@@ -24,4 +24,16 @@ class UserMapperTest {
         userMapper.userJoin(user);
     }
 
+    @Test
+    public void idCheckTest() {
+
+        String userId = "test1";
+
+        int result = userMapper.idCheck(userId);
+
+        System.out.println("result = " + result);
+    }
+
+
+
 }
