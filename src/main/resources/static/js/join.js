@@ -40,6 +40,11 @@ function pwCheck(obj) {
     }
 }
 
+
+/* mail send And check*/
+
+let mailCheckNum = "";
+
 document.querySelector(".join_email_btn.submit").addEventListener("click", function () {
     console.log("test");
     let email = document.querySelector("input[name=userEmail]").value;
@@ -49,11 +54,24 @@ document.querySelector(".join_email_btn.submit").addEventListener("click", funct
         data: {email, email},
         success: function (result) {
             console.log("성공");
-            console.log(result);
+            console.log("mailCheckNum: " + result);
+            mailCheckNum = result;
         },
         error: function (error) {
             console.log(error);
         }
 
     });
+});
+
+document.querySelector(".join_email_btn.check").addEventListener("click", function () {
+    let userInput = document.querySelector(".join_email.check").value;
+    if (userInput === mailCheckNum) {
+        document.querySelector(".mailCheck_fail").style.display = "none";
+        document.querySelector(".mailCheck_success").style.display = "block";
+    } else {
+        document.querySelector(".mailCheck_fail").style.display = "block";
+        document.querySelector(".mailCheck_success").style.display = "none";
+    }
+
 });

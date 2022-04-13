@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -34,6 +36,16 @@ class UserMapperTest {
         System.out.println("result = " + result);
     }
 
+    @Test
+    public void test() {
+        Random random = new Random();
+
+        for (int i = 0; i < 10; i++) {
+            int num = random.nextInt(888888) + 111111;
+            System.out.println("random = " + num);
+        }
+
+    }
 
 
 }
