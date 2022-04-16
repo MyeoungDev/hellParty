@@ -1,14 +1,20 @@
 package com.hellparty.controller;
 
-import com.hellparty.domain.UserVO;
+import com.hellparty.domain.UserDTO;
 import com.hellparty.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -28,15 +34,46 @@ public class UserController {
     }
 
     @GetMapping(value = "join")
-    public void joinGET() {
+    public void joinGET(UserDTO userDTO) {
+        // 여기서 UserDTO를 받아줘야 회원가입 실패시 그 입력값이 그대로 유지된다.
+        // 즉, 기존에 처음 페이지에 들어갈 때는 userDTO가 parameter로 들어오지 않으니 무시되고,
+        // 회원가입 실패시, UserDTO를 받은 Get요청이 이루어지면서 model을 통해 넘어온 값이 parameter 로 받아지게 된다.
         log.info("Controller joinGET");
     }
 
-    @PostMapping(value = "joinAction")
-    public String joinPOST(UserVO user) throws Exception{
+
+    @PostMapping(value = "join")
+    public String joinPOST(@Valid UserDTO userDTO, Errors errors, Model model) throws Exception {
         log.info("Controller joinPOST");
 
-        userService.userJoin(user);
+        /* post요청시 넘어온 user 입력값에서 Validation에 걸리는 경우 */
+        if (errors.hasErrors()) {
+            /* 회원가입 실패시 입력 데이터 유지 */
+            model.addAttribute("userDTO", userDTO);
+            /* 회원가입 실패시 message 값들을 모델에 매핑해서 View로 전달 */
+            Map<String, String> validateResult = userService.validateHandler(errors);
+            // map.keySet() -> 모든 key값을 갖고온다.
+            // 그 갖고온 키로 반복문을 통해 키와 에러 메세지로 매핑
+
+            Map<String, String> validateMap = new HashMap<>();
+
+            for (FieldError error : errors.getFieldErrors()) {
+                String validKeyName = "valid_" + error.getField();
+                validateMap.put(validKeyName, error.getDefaultMessage());
+            }
+
+            for (String key1 : validateMap.keySet()) {
+                model.addAttribute(key1, validateMap.get(key1));
+            }
+
+            for (String key : validateResult.keySet()) {
+                // ex) model.addAtrribute("valid_id", "아이디는 필수 입력사항 입니다.")
+                model.addAttribute(key, validateResult.get(key));
+            }
+            return "join";
+        }
+
+        userService.userJoin(userDTO);
 
         log.info("join 성공");
 

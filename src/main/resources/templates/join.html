@@ -18,20 +18,22 @@
     <div id="container">
         <div class="join">
             <div class="join_columns">
-                <form action="joinAction" method="post">
+                <form id="joinForm" th:action="@{join}" method="post">
                     <div class="join_columns_column logo">
                         <img src="/img/헬스파티ver2.png" alt="" class="join_logo">
                     </div>
                     <div class="join_columns_column">
                         <p class="join_column_text">아이디</p>
-                        <input type="text" name="userId" class="join_input" oninput="idCheck()">
+                        <input type="text" name="userId" th:value="${userDTO.userId}" class="join_input" oninput="idCheck()">
                         <p class="join_warn idCheck_fail">존재하는 아이디입니다.</p>
                         <p class="join_warn success idCheck_success">사용 가능한 아이디입니다.</p>
+                        <p class="valid_warn" th:text="${valid_userId}"></p>
                     </div>
-                    
+
                     <div class="join_columns_column">
                         <p class="join_column_text">비밀번호</p>
-                        <input type="text" name="userPw" class="join_input">
+                        <input type="text" name="userPw" th:value="${userDTO.userPw}" class="join_input">
+                        <p class="valid_warn" th:text="${valid_userPw}"></p>
                     </div>
 
                     <div class="join_columns_column">
@@ -43,14 +45,15 @@
 
                     <div class="join_columns_column">
                         <p class="join_column_text">이름</p>
-                        <input type="text" name="userName" class="join_input">
+                        <input type="text" name="userName" th:value="${userDTO.userName}" class="join_input">
+                        <p class="valid_warn" th:text="${valid_userName}"></p>
                     </div>
 
                     <div class="join_columns_column">
-                        <p class="join_column_text">이메일</p>
+                        <p class="join_column_text">이메일 <span class="valid_warn" th:text="${valid_userEmail}"></span></p>
                         <div class="join_mail_box">
-                        <input type="text" name="userEmail" class="join_email">
-                        <button type="button" class="join_email_btn submit">인증번호 전송</button>
+                            <input type="text" name="userEmail" th:value="${userDTO.userEmail}" class="join_email">
+                            <button type="button" class="join_email_btn submit">인증번호 전송</button>
                         </div>
                         <div class="email_mailCheck_box">
                             <input type="text" class="join_email check">
@@ -61,7 +64,7 @@
                     </div>
 
                     <div class="join_columns_column">
-                        <button type="submit" class="join_submit_btn">가입하기</button>
+                        <button type="submit" id="joinBtn" class="join_submit_btn">가입하기</button>
                     </div>
                 </form>
             </div>

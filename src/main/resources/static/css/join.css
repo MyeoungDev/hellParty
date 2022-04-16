@@ -61,13 +61,21 @@
     font-size: 14px;
     margin-top: 3px;
     color: red;
-     display: none;
+    display: none;
 }
 
 .join_warn.success{
     color: #009e12;
     /* display: block; */
 }
+
+.valid_warn{
+    font-size: 14px;
+    margin-top: 3px;
+    color: red;
+    /*display: none;*/
+}
+
 
 .join_email{
     width: 70%;

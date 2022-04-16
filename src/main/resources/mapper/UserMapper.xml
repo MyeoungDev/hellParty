@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hellparty.mapper.UserMapper">
 
-    <insert id="userJoin" parameterType="com.hellparty.domain.UserVO">
+    <insert id="userJoin" parameterType="com.hellparty.domain.UserDTO">
         INSERT INTO hellparty_user
         (userId, userPw, userName, userEmail, regDate ,adminCk)
         VALUES(#{userId}, #{userPw}, #{userName}, #{userEmail}, NOW() ,0)
