@@ -13,4 +13,12 @@
         FROM hellparty_user
         WHERE userId = #{userId}
     </select>
+
+    <select id="userLogin" resultType="com.hellparty.domain.UserDTO">
+        SELECT *
+        FROM hellparty_user
+        WHERE userId = #{userId} AND userPw = #{userPw}
+    </select>
+
+
 </mapper>

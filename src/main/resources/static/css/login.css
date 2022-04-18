@@ -70,3 +70,9 @@
     margin-top: 30px;
     font-size: 25px;
 }
+
+.login_fail {
+    font-size: 18px;
+    color: red;
+    margin-bottom: 15px;
+}

@@ -42,4 +42,9 @@ public class UserServiceImpl implements UserService {
 
         return validateResult;
     }
+
+    @Override
+    public UserDTO userLogin(UserDTO userDTO){
+        return userMapper.userLogin(userDTO);
+    }
 }

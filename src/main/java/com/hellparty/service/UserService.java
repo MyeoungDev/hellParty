@@ -8,13 +8,16 @@ import java.util.Map;
 public interface UserService {
 
     /* 회원가입 */
-    public void userJoin(UserDTO userVO) throws Exception;
+    public void userJoin(UserDTO userDTO) throws Exception;
 
     /* 아이디 중복 체크 */
     public int idCheck(String userId) throws Exception;
 
     /* 회원가입 Validation */
     public Map<String, String> validateHandler(Errors errors);
+
+    /* 로그인 */
+    public UserDTO userLogin(UserDTO userDTO);
 
 
 }

@@ -64,5 +64,15 @@ class UserMapperTest {
         System.out.println("map.keySet() = " + map.keySet());
     }
 
+    @Test
+    public void loginTest() {
+        UserDTO userDTO = new UserDTO();
+
+        userDTO.setUserId("test1");
+        userDTO.setUserPw("test1");
+
+        UserDTO result = userMapper.userLogin(userDTO);
+        System.out.println("result = " + result);
+    }
 
 }

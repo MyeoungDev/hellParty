@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,17 +24,18 @@
                 <img src="/img/헬스파티ver2.png" class="login_logo">
             </div>
 
-            <div class="login_columns">
+            <p class="login_fail" th:text="${loginFail}" style="font-size: 10px"></p>
 
-                <form action="loginAction">
+            <div class="login_columns">
+                <form action="login" method="post">
                 <div class="login_columns_column">
                     <i class="fa-regular fa-user"></i>
-                    <input type="text" class="login_input" placeholder="username">
+                    <input type="text" class="login_input" name="userId" placeholder="username">
                 </div>
 
                 <div class="login_columns_column">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="text" class="login_input" placeholder="password">
+                    <input type="text" class="login_input" name="userPw" placeholder="password">
                 </div>
 
                 <div class="login_columns_column">

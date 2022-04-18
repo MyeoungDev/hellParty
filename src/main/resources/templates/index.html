@@ -17,20 +17,37 @@
 </head>
 <body>
     <div id="container">
-
         <div class="header">
             <div class="header_columns">
                  <!-- 로고 글 색갈 #e82d00 -->
                 <img src="/img/헬스파티ver2.png" class="header_logo">
             </div>
-            <div class="header_columns">
-                <div class="header_columns_column">
-                    <a th:href="@{join}">회원가입</a>
+
+            <th:block th:if="${loginUser == null}">
+                <div class="header_columns">
+                    <div class="header_columns_column">
+                        <a th:href="@{join}">회원가입</a>
+                    </div>
+                    <div class="header_columns_column">
+                        <a th:href="@{login}">로그인</a>
+                    </div>
                 </div>
-                <div class="header_columns_column">
-                    <a th:href="@{login}">로그인</a>
+            </th:block>
+            <th:block th:unless="${loginUser == null}">
+                <div class="header_columns">
+                    <div class="header_columns_column">
+                        <a th:href="@{join}">새 글 쓰기</a>
+                    </div>
+                    <div class="header_columns_column">
+                        <a th:href="@{index}" th:text="${loginUser.userId}">userId</a>
+                    </div>
+                    <div class="header_columns_column">
+                        <form th:action="@{logout}" method="post">
+                            <button type="submit">로그아웃</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            </th:block>
         </div>
 
         <div class="banner">

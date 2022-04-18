@@ -12,4 +12,10 @@ public interface UserMapper {
     /* 아이디 중복 체크  return 1: 중복 O, 0: 중복 X*/
     public int idCheck(String userId);
 
+    /* 로그인 */
+    public UserDTO userLogin(UserDTO userDTO);
+
+
+    public void test(UserDTO userDTO);
+
 }
