@@ -60,6 +60,8 @@ public class UserController {
         return "redirect:/index";
     }
 
+    /* TODO -> 인터셉터 처리 후 register 퍼블리싱하기! ㅅㄷㅅㄴ*/
+
     @PostMapping(value = "logout")
     public String logoutGET(HttpServletRequest request) {
         HttpSession session = request.getSession();
