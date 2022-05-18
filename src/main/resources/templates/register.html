@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/header.css">
+
+  <link rel="stylesheet" href="css/register.css">
+
+
+
+
+  <!-- Theme included stylesheets -->
+  <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+
+  <!-- Main Quill library -->
+  <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+  <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/1811ec3902.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="container">
+
+  <div class="header">
+    <div class="header_columns">
+      <!-- 로고 글 색갈 #e82d00 -->
+      <img src="/img/헬스파티ver2.png" class="header_logo">
+    </div>
+    <div class="header_columns">
+      <div class="header_columns_column">
+        <a href="#">글 쓰기</a>
+      </div>
+      <div class="header_columns_column">
+        <a href="#">로그인</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="register">
+    <div class="register_columns">
+      <div class="register_columns_column">
+        <input type="text" class="register_title" placeholder="제목을 입력하세요.">
+      </div>
+      <div class="register_columns_column dropdown">
+        <p class="register_text">운동 지역<span> : </span></p>
+        <div class="register_dropdown_box">
+          <select name="" id="dropdown_btn" class="dropdown_btn">
+            <option value="" disabled selected>함께 운동 할 지역 선택</option>
+            <option value="">서울</option>
+            <option value="">부산</option>
+            <option value="">대구</option>
+            <option value="">인천</option>
+            <option value="">광주</option>
+            <option value="">대전</option>
+            <option value="">울산</option>
+            <option value="">제주</option>
+            <option value="">경기</option>
+            <option value="">강원</option>
+            <option value="">충북</option>
+            <option value="">충남</option>
+            <option value="">전북</option>
+            <option value="">전남</option>
+          </select>
+        </div>
+      </div>
+
+
+
+      <div class="editor_container">
+        <div id="editor"></div>
+      </div>
+
+      <!-- https://open.kakao.com/o/gyvuT5Yd -->
+
+
+      <div class="register_columns_column openTalk">
+        <p class="register_text openTalk">카카오톡 오픈채팅<span> : </span></p>
+        <input type="text" name="" id="openTalk_link" placeholder="오픈카톡 링크">
+      </div>
+
+      <div class="register_btn_containier">
+        <button class="register_cancel">취소</button>
+        <button class="register_submit">등록</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="js/register.js"></script>
+
+
+</body>
+</html>

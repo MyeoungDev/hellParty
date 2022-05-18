@@ -1,0 +1,158 @@
+/* layout */
+
+.register{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+    font-family: "medium";
+}
+
+.register_columns{
+    width: 1024px;
+}
+
+.register_columns_column{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
+.register_columns_column.dropdown{
+    margin-top: 15px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+}
+
+.register_dropdown_box{
+    width: 100%;
+}
+
+
+/* style */
+
+.register_title{
+    width: 100%;
+    border: none;
+    border-bottom: solid 1px rgb(200, 200, 200);
+    /* font-size: 80px; */
+    font-size: 3rem;
+    font-weight: 600;
+    padding-bottom: 10px;
+    outline: none;
+
+}
+
+.register_text{
+    font-size: 24px;
+    width: 140px;
+    margin-right: 30px;
+    font-weight: bold;
+}
+
+.register_text span{
+    margin-left: 5px;
+}
+
+.dropdown_btn{
+    width: 500px;
+    height: 52px;
+    border: solid 1px rgb(200, 200, 200);
+    border-radius: 5px;
+    color: rgb(130, 130, 130);
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0 10px;
+    /* outline-color: rgb(79, 79, 243); */
+    outline: none;
+}
+
+.dropdown_btn option{
+    font-weight: bold;
+}
+
+
+.editor_container{
+    margin-top: 15px;
+}
+
+#editor{
+    width: 100%;
+    min-height: 400px;
+}
+
+
+.register_columns_column.openTalk{
+    margin-top: 25px;
+}
+
+.register_text.openTalk{
+    width: 200px;
+}
+
+#openTalk_link{
+    width: 500px;
+    height: 52px;
+    font-family: 'medium';
+    border: solid 1px rgb(200, 200, 200);
+    border-radius: 5px;
+    color: rgb(130, 130, 130);
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0 10px;
+    outline: none;
+}
+
+.register_btn_containier{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 200px;
+}
+
+.register_btn_containier button{
+    width: 100px;
+    height: 40px;
+    font-family: 'medium';
+    font-size: 16px;
+    border: none;
+}
+
+.register_cancel{
+    color: #000;
+    background-color: rgb(200, 200, 200);
+}
+
+.register_submit{
+    margin-left: 30px;
+    color: #fff;
+    background-color: #e82d00;
+}
+
+/*
+    Board Part
+1. Quill.js 붙여넣기    O
+2. Spring 가서 DB 연동
+3. 게시판처럼 등록하고 메인에 뛰우는 것 까지
+4. 수정, 삭제 기능
+5. 게시판에 이미지 첨부기능?
+6. 댓글기능! 여기에 개인 이미지가 등록되도록?? 없으면 덤벨이미지?
+
+-> 사용자 개인 이미지를 등록해서 사용하게 할꺼면
+게시판 블록 사이즈를 더 크게 만들어서
+제목위에 사용자 이미지 + 사용자 닉네임? 노출되게 만들기?
+
+-> 아니면 기존 틀을 바꾸는건 귀찮고 오래 걸리니까
+그냥 댓글에만 출력되게끔 하는건 어떨까?
+
+    개인정보
+1. 개인정보 수정? 닉네임 수정? 이런 것
+2. 프로필 사진등록?
+
+    넣어보고 싶은 기능
+사용자간의 1:1 메시지? 이건 근데 카톡 오픈채팅을 이용하면 필요 없음....
+
+*/
