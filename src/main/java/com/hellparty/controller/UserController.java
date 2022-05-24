@@ -39,7 +39,7 @@ public class UserController {
         log.info("Controller loginGET");
     }
 
-    @PostMapping(value = "login")
+    @PostMapping(value = "login.do")
     public String loginPOST(UserDTO userDTO, HttpServletRequest request, RedirectAttributes rttr){
         log.info("Controller loginPOST");
 
@@ -132,9 +132,5 @@ public class UserController {
         }
     }
 
-    @GetMapping(value = "register")
-    public void registerGET() {
-        log.info("Controller registerGET");
-    }
 
 }

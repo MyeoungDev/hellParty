@@ -1,26 +1,58 @@
-const dropdownBtn = document.getElementById("dropdown_btn");
+function quilljsediterInit(){
+    var option = {
+        modules: {
+            toolbar: [
+                [{header: [1,2,false] }],
+                ['bold', 'italic', 'underline'],
+                ['image', 'code-block'],
+                [{ list: 'ordered' }, { list: 'bullet' }]
+            ]
+        },
+        placeholder: '자세한 내용을 입력해 주세요!',
+        theme: 'snow'
+    };
 
+    quill = new Quill('#editor', option);
+    quill.on('text-change', function() {
+        document.getElementById("quill_html").value = quill.root.innerHTML;
+    });
 
+    quill.getModule('toolbar').addHandler('image', function () {
+        selectLocalImage();
+    });
+}
 
-var toolbarOptions = [
+/* 이미지 콜백 함수 */
 
-    [{ 'font': [] }],
-    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+function selectLocalImage() {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.click();
 
-    [{ 'align': [] }],
-    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+    input.onchange = function () {
+        const fd = new FormData();
+        const file = $(this)[0].files[0];
+        fd.append('image', file);
 
-    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-    ['blockquote', 'code-block'],
+        $.ajax({
+            type: 'post',
+            enctype: 'mulipart/form-data',
+            url: '/board/register/imageUpload',
+            data: fd,
+            processData: false,
+            contentType: false,
+            // beforeSend: function (xhr){
+            //     xhr.setRequestHeader($())
+            // }
+            success: function (data) {
+                const range = quill.getSelection();
+                quill.insertEmbed(range.index, 'image', 'http:/localhost:8080/upload/' + data);
+            },
+            error: function (err) {
+                console.log('Error' + err);
+            }
+        });
+    };
+}
 
-    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-];
-
-var quill = new Quill('#editor', {
-    modules: {
-        toolbar: toolbarOptions
-    },
-    placeholder: '자세한 내용을 입력해주세요!',
-    // readOnly: true,  -> 이거는 보여줄 때 사용하면 될 듯
-    theme: 'snow'
-});
+quilljsediterInit();

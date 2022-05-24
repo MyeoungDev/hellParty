@@ -105,7 +105,7 @@
     outline: none;
 }
 
-.register_btn_containier{
+.register_btn_container{
     margin-top: 30px;
     display: flex;
     align-items: center;
@@ -113,7 +113,7 @@
     margin-bottom: 200px;
 }
 
-.register_btn_containier button{
+.register_btn_container button{
     width: 100px;
     height: 40px;
     font-family: 'medium';

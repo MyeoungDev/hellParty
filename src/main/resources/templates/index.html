@@ -36,7 +36,7 @@
             <th:block th:unless="${loginUser == null}">
                 <div class="header_columns">
                     <div class="header_columns_column">
-                        <a th:href="@{join}">새 글 쓰기</a>
+                        <a th:href="@{board/register}">새 글 쓰기</a>
                     </div>
                     <div class="header_columns_column">
                         <a th:href="@{index}" th:text="${loginUser.userId}">userId</a>
