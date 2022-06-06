@@ -56,7 +56,6 @@ function selectLocalImage() {
                 console.log("new uploadPath : " + data.uploadPath);
                 console.log(data.uuid);
                 console.log(data.fileName);
-                // quill.insertEmbed(range.index, 'image', "C\\upload" + data.uploadPath + data.uuid + data.fileName);
                 quill.insertEmbed(range.index, 'image', "/board/display?fileName=" + data.uploadPath +"/"+ data.uuid +"_"+ data.fileName);
                 console.log(range);
 

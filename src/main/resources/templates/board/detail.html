@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" th:href="@{../css/reset.css}">
+    <link rel="stylesheet" th:href="@{../css/global.css}">
+    <link rel="stylesheet" th:href="@{../css/header.css}">
+
+    <link rel="stylesheet" th:href="@{../css/detail.css}">
+
+    <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/1811ec3902.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div id="container">
+
+    <div class="header">
+        <div class="header_columns">
+            <!-- 로고 글 색갈 #e82d00 -->
+            <img src="/img/헬스파티ver2.png" class="header_logo">
+        </div>
+        <div class="header_columns">
+            <div class="header_columns_column">
+                <a href="#">글 쓰기</a>
+            </div>
+            <div class="header_columns_column">
+                <a href="#">로그인</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="board">
+        <div class="board_columns">
+            <div class="board_columns_column title">
+                <p class="board_title">제목입니다.제목입니다.제목입니다.제목입니다.제목입니다.제목입니다.제목입니다.</p>
+                <div class="board_writer_container">
+                    <i class="fa-solid fa-dumbbell"></i>
+                    <p class="board_writer">작성자</p>
+                    <p class="board_wirter_line">|</p>
+                    <p class="board_date">2022.06.06</p>
+                </div>
+            </div>
+
+
+            <div class="board_columns_column area">
+                <p class="board_text">운동 지역<span> : </span></p>
+                <p class="board_area">광주</p>
+            </div>
+
+
+            <div class="editor_container">
+                <div id="editor"></div>
+            </div>
+
+            <!-- https://open.kakao.com/o/gyvuT5Yd -->
+
+
+            <div class="board_columns_column openTalk">
+                <p class="board_text openTalk">카카오톡 오픈채팅<span> : </span></p>
+                <p id="openTalk_link">https://open.kakao.com/o/gyvuT5Yd</p>
+                <!-- <input type="text" name="" id="openTalk_link" placeholder="오픈카톡 링크"> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="comment">
+        <div class="comment_columns">
+            <p class="comment_text">2개의 댓글이 있습니다.</p>
+        </div>
+
+        <div class="comment_columns">
+            <textarea name="comment_input" id="comment_input"  placeholder="댓글을 입력하세요" cols="30" rows="10"></textarea>
+        </div>
+
+        <div class="comment_columns button">
+            <button type="submit" class="comment_button">댓글 등록</button>
+        </div>
+
+        <div class="comment_columns content">
+            <div class="comment_columns_column">
+                <i class="fa-solid fa-dumbbell"></i>
+                <div class="comment_writer_box">
+                    <p class="comment_writer">작성자</p>
+                    <p class="comment_date">2022-06-06 23:15:21</p>
+                </div>
+            </div>
+            <div class="comment_columns_column content">
+                <p class="comment_content_text">댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.</p>
+            </div>
+        </div>
+
+        <div class="comment_columns content">
+            <div class="comment_columns_column">
+                <i class="fa-solid fa-dumbbell"></i>
+                <div class="comment_writer_box">
+                    <p class="comment_writer">작성자</p>
+                    <p class="comment_date">2022-06-06 23:15:21</p>
+                </div>
+            </div>
+            <div class="comment_columns_column content">
+                <p class="comment_content_text">댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.</p>
+            </div>
+        </div>
+
+        <div class="comment_columns content">
+            <div class="comment_columns_column">
+                <i class="fa-solid fa-dumbbell"></i>
+                <div class="comment_writer_box">
+                    <p class="comment_writer">작성자</p>
+                    <p class="comment_date">2022-06-06 23:15:21</p>
+                </div>
+            </div>
+            <div class="comment_columns_column content">
+                <p class="comment_content_text">댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.</p>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>
+
+<script th:inline="javascript">
+
+    function quilljsediterInit(){
+
+        var option = {
+            modules: {
+                toolbar: false
+            },
+            readOnly: true,
+            theme: 'snow'
+        };
+
+        quill = new Quill('#editor', option);
+
+        let content = [[${boardDTO.content}]];
+
+        quill.clipboard.dangerouslyPasteHTML(content);
+
+    }
+
+    quilljsediterInit();
+
+</script>
+
+
+</body>
+</html>
