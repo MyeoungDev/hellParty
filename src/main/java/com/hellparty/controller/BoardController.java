@@ -47,6 +47,7 @@ public class BoardController {
     }
 
     /* TODO -> detail view 제목, 지역, 카톡링크 구현하기  */
+    /* TODO -> index 에서 해당 게시글들 보이게 표시하기 */
     /* TODO -> 위의 모든 사항 구현 후 댓글 기능 구현하기 */
 
     @PostMapping(value = "/register.do")
@@ -57,6 +58,7 @@ public class BoardController {
         UserDTO userDTO = (UserDTO) session.getAttribute("loginUser");
 
         boardDTO.setUserIdx(userDTO.getUserIdx());
+        boardDTO.setUserId(userDTO.getUserId());
         boardService.boardRegister(boardDTO);
 
         rttr.addFlashAttribute("register_result", boardDTO.getUserIdx());

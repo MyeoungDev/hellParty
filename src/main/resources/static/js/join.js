@@ -99,13 +99,6 @@ document.querySelector(".join_email_btn.check").addEventListener("click", functi
 
 /* Validation */
 
-/* TODO -> 현재 문제
-*   1. 아래의 JS로 드디어 아이디 중복, 비밀번호 확인, 이메일 인증 3가지가 안되면 submit이 안되게 막음
-*   2. 그런데 문제는 새로고침하면 저런 체크들이 모두 false로 돌아가서 사용자가 다시 진행해야 됨....
-*   3. 우선 이걸로 만족하고 로그인 기능으로 넘어가자.....
-* 
-* */
-
 const submitBtn = document.getElementById("joinBtn");
 
 submitBtn.addEventListener("click", function () {

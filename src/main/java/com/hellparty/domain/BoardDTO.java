@@ -11,6 +11,9 @@ public class BoardDTO {
     /* UserIdx  FK */
     private int userIdx;
 
+    /* 작성자 */
+    private String userId;
+
     /* BoardIdx  PK */
     private int boardIdx;
 

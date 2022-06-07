@@ -18,6 +18,7 @@ class BoardMapperTest {
     public void boardRegister() {
         BoardDTO boardDTO = new BoardDTO();
         boardDTO.setUserIdx(1);
+        boardDTO.setUserId("test1");
         boardDTO.setTitle("mapperTest");
         boardDTO.setArea("mapperTest");
         boardDTO.setContent("mapperTest");
