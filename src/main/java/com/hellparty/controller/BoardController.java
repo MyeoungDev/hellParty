@@ -13,12 +13,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -43,8 +46,12 @@ public class BoardController {
         return "board/register";
     }
 
+    /* TODO -> detail view 제목, 지역, 카톡링크 구현하기  */
+    /* TODO -> 위의 모든 사항 구현 후 댓글 기능 구현하기 */
+
     @PostMapping(value = "/register.do")
-    public void registerPOST(HttpServletRequest request, BoardDTO boardDTO) {
+    public String registerPOST(HttpServletRequest request, BoardDTO boardDTO, RedirectAttributes rttr) {
+
         log.info("Controller registerPOST");
         HttpSession session = request.getSession();
         UserDTO userDTO = (UserDTO) session.getAttribute("loginUser");
@@ -52,7 +59,11 @@ public class BoardController {
         boardDTO.setUserIdx(userDTO.getUserIdx());
         boardService.boardRegister(boardDTO);
 
+        rttr.addFlashAttribute("register_result", boardDTO.getUserIdx());
+
         log.info("게시글 등록 성공");
+
+        return "redirect:/index";
 
     }
 
@@ -120,7 +131,7 @@ public class BoardController {
     public ResponseEntity<byte[]> showImageGET(
             @RequestParam("fileName") String fileName
     ) {
-        log.info("showImageGET");
+        log.info("Controller showImageGET");
 
         log.info("fileName" + fileName);
 

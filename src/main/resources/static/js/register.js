@@ -1,3 +1,48 @@
+/* Validation */
+
+let titleCk = false;
+let titleInput = document.querySelector("input[name=title]").value;
+
+let areaCk = false;
+let areaInput =  document.querySelector("#dropdown_btn").value;
+
+let contentCk = false;
+
+let openLinkCk = false;
+let openLinkInput = document.querySelector("input[name=openLink]").value;
+
+
+const register_btn = document.querySelector(".register_submit");
+register_btn.addEventListener("click", function () {
+
+    if (titleInput === '') {
+        titleCk = false;
+    } else {
+        titleCk = true;
+    }
+
+    if (areaInput === '') {
+        areaCk = false;
+    } else {
+        areaCk = true;
+    }
+
+    if (openLinkInput === '') {
+        openLinkCk = false;
+    } else {
+        openLinkCk = true;
+    }
+
+    if (titleCk && areaCk && contentCk && openLinkCk) {
+        document.querySelector("#registerForm").submit();
+    } else {
+        alert("입력되지 않은 정보가 있습니다.");
+    }
+});
+
+
+
+
 function quilljsediterInit(){
     var option = {
         modules: {
@@ -15,6 +60,13 @@ function quilljsediterInit(){
     quill = new Quill('#editor', option);
     quill.on('text-change', function() {
         document.getElementById("quill_html").value = quill.root.innerHTML;
+
+        if (quill.getLength() != 1) {
+            contentCk = true;
+        } else {
+            contentCk = false;
+        }
+
     });
 
     quill.getModule('toolbar').addHandler('image', function () {
@@ -67,32 +119,11 @@ function selectLocalImage() {
         });
 
     });
-
-    // input.onchange = function () {
-    //     const formData = new FormData();
-    //     const file = input.files[0];
-    //     formData.append('uploadFile', file);
-    //     console.log("formData.get('uploadFile')" + JSON.stringify(formData.get('uploadFile')));
-    //
-    //     $.ajax({
-    //         type: 'post',
-    //         enctype: 'multipart/form-data',
-    //         url: '/board/register/imageUpload',
-    //         data: formData,
-    //         processData: false,
-    //         contentType: false,
-    //         // beforeSend: function (xhr){
-    //         //     xhr.setRequestHeader($())
-    //         // }
-    //         success: function (data) {
-    //             const range = quill.getSelection();
-    //             quill.insertEmbed(range.index, 'image', 'http:/localhost:8080/upload/' + data);
-    //         },
-    //         error: function (err) {
-    //             console.log('Error' + err);
-    //         }
-    //     });
-    // };
 }
 
 quilljsediterInit();
+
+/* Validation */
+
+
+

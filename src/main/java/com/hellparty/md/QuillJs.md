@@ -1,4 +1,4 @@
-# [Spring Boot] Quill.js + 이미지 업로드 (위지윅 에디터 이미지 업로드) 
+# [Spring Boot] Quill.js + 이미지 업로드 (위지윅 에디터 이미지 업로드)
 
 [참조 블로그](https://dkfkslsksh.tistory.com/37)
 
@@ -128,30 +128,257 @@ quilljsediterInit();
 ```javascript
 quill = new Quill('#editor', option);
 quill.on('text-change', function() {
-        document.getElementById("quill_html").value = quill.root.innerHTML;
+    document.getElementById("quill_html").value = quill.root.innerHTML;
 });
 ```
 
-위처럼 히든타입의 input 태그를 하나 추가해주고, 
+<br>
+
+위처럼 히든타입의 input 태그를 하나 추가해주고,
 Quill.js의 메서드인 on메서드를 통해서 Quill.js안의 내용을 input태그에 넣어주는 것이다.
 해당 방법으로 진행하니 DB에 저장되는 것에 이상이 없었다.
 
 ### Ajax 콜백 함수
 
+```java
+quill.getModule('toolbar').addHandler('image', function () {
+        selectLocalImage();
+    });
+```
+
+<br>
+
+quill 에디터 선언할 때 해당 코드를 넣어줘 toolbar의 image를 컨트롤 할 수있게 해준다.
+
+[Quill.js API 문서](https://quilljs.com/docs/api/)
+
+<br>
+
+```javascript
+
+function selectLocalImage() {
+    const fileInput = document.createElement('input');
+    fileInput.setAttribute('type', 'file');
+    console.log("input.type " + fileInput.type);
+
+    fileInput.click();
+
+    fileInput.addEventListener("change", function () {  // change 이벤트로 input 값이 바뀌면 실행
+        const formData = new FormData();
+        const file = fileInput.files[0];
+        formData.append('uploadFile', file);
+
+        $.ajax({
+            type: 'post',
+            enctype: 'multipart/form-data',
+            url: '/board/register/imageUpload',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function (data) {
+                const range = quill.getSelection(); // 사용자가 선택한 에디터 범위
+                // uploadPath에 역슬래시(\) 때문에 경로가 제대로 인식되지 않는 것을 슬래시(/)로 변환
+                data.uploadPath = data.uploadPath.replace(/\\/g, '/');
+                
+                quill.insertEmbed(range.index, 'image', "/board/display?fileName=" + data.uploadPath +"/"+ data.uuid +"_"+ data.fileName);
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+
+    });
+}
+
+```
+
+<br>
+
+먼저 Ajax 통신시에 `enctype`, `formData` 등에 대한 설명은 전 글에 작성해 두었다.
+
+이미지 업로드에 대한 Ajax 통신에 궁금증이 들면 한번 참고 바란다.
+
+[[Javascript] FormData 란?(Ajax 이미지 첨부)](https://myeongdev.tistory.com/48)
 
 
-formData.append('item','hi'); // <input name="item" value="hi"> 와 같다.
-formData.append('item','hello'); // <input name="item" value="hello">
-append() 메소드로 key-value 값을 하나씩 추가해주면 같은 key를 가진 값을 여러 개 넣을 수 있습니다. (덮어씌워지지 않고 추가가 됩니다.)
-참고로 값은 "문자열"로 자동 변환 됩니다.
-출처: https://inpa.tistory.com/entry/JS-📚-FormData-정리-fetch-api [👨‍💻 Dev Scroll:티스토리]
+<br>
+<br>
+
+`quill.insertEmbed`는 quill에서 제공하는 메서드로 content를 지정 범위 안에 삽입할 때 사용하는 메서드이다.
+
+<br>
+
+```javascript
+insertEmbed(index: Number, type: String, value: any, source: String = 'api'): Delta
+```
+
+<br>
+
+공식 문서에서 위와 같이 사용하라고 나와있다.
+
+그래서 `quill.getSelection()`을 통해 현재 에디터 안의 위치를 가져와 `image`타입을 설정해 주고, Controller를 통해 처리하도록 만들었다.
+
+<br>
+
+밑에 Javascript에 대한 전체 코드를 붙여 놓았다.
+
+전체 코드가 필요하신 분은 아래 더보기를 눌러 확인하시면 된다.
+
+**전체코드 더보기**
+
+<details markdown="1">
+<summary>접기/펼치기</summary>
+
+```javascript
+
+function quilljsediterInit(){
+    var option = {
+        modules: {
+            toolbar: [
+                [{header: [1,2,false] }],
+                ['bold', 'italic', 'underline'],
+                ['image', 'code-block'],
+                [{ list: 'ordered' }, { list: 'bullet' }]
+            ]
+        },
+        placeholder: '자세한 내용을 입력해 주세요!',
+        theme: 'snow'
+    };
+
+    quill = new Quill('#editor', option);
+    quill.on('text-change', function() {
+        document.getElementById("quill_html").value = quill.root.innerHTML;
+    });
+
+    quill.getModule('toolbar').addHandler('image', function () {
+        selectLocalImage();
+    });
+}
+
+/* 이미지 콜백 함수 */
+
+function selectLocalImage() {
+    const fileInput = document.createElement('input');
+    fileInput.setAttribute('type', 'file');
+    console.log("input.type " + fileInput.type);
+
+    fileInput.click();
+
+    fileInput.addEventListener("change", function () {  // change 이벤트로 input 값이 바뀌면 실행
+        const formData = new FormData();
+        const file = fileInput.files[0];
+        formData.append('uploadFile', file);
+
+        $.ajax({
+            type: 'post',
+            enctype: 'multipart/form-data',
+            url: '/board/register/imageUpload',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function (data) {
+                const range = quill.getSelection(); // 사용자가 선택한 에디터 범위
+                data.uploadPath = data.uploadPath.replace(/\\/g, '/');
+                quill.insertEmbed(range.index, 'image', "/board/display?fileName=" + data.uploadPath +"/"+ data.uuid +"_"+ data.fileName);
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+
+    });
+}
+
+quilljsediterInit();
+
+```
+</details>
 
 
-출처: https://inpa.tistory.com/entry/JS-📚-FormData-정리-fetch-api [👨‍💻 Dev Scroll:티스토리]
+### Controller
 
--> 어쩐지 값 봐보려고 JSON.stringify 아무리 찍어도 안나오더라...
+먼저 업로드 파일을 저장하는 부분은 이전 글에 작성하였으므로 여기서 다시 작성하지 않도록 하겠다.
+
+만약 파일 업로드에 대한 부분이 궁금하신 분들은 아래 링크를 참고 바란다.
+
+[[Spring Boot] MultipartResolver 파일 업로드 - 1(Gradle, Ajax)](https://myeongdev.tistory.com/34)
+
+[[Spring Boot] MultipartResolver 파일 업로드 - 2 (Date 폴더 생성, UUID)](https://myeongdev.tistory.com/35)
+
+<br>
+
+```java
+@ResponseBody
+@GetMapping(value = "/display")
+public ResponseEntity<byte[]> showImageGET(
+@RequestParam("fileName") String fileName
+        ) {
+        log.info("Controller showImageGET");
+
+        log.info("fileName" + fileName);
+
+        File file = new File("C:\\upload\\" + fileName);
+
+        ResponseEntity<byte[]> result = null;
+
+        try {
+
+        HttpHeaders header = new HttpHeaders();
+
+        /*
+        Files.probeContentType() 해당 파일의 Content 타입을 인식(image, text/plain ...)
+        없으면 null 반환
+
+        file.toPath() -> file 객체를 Path객체로 변환
+
+        */
+        header.add("Content-type", Files.probeContentType(file.toPath()));
+
+        result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+
+        } catch (IOException e) {
+        e.printStackTrace();
+        }
+
+        return result;
+        }
+
+```
+
+<br>
+
+위의 코드는 간단히 설명하면 `HttpHeader`에 `@Reqeustparam`을 통해 들어온 파일에 대한 `Content-type`,
+
+`byte[]`타입으로 새롭게 `copy`된 파일 정보,
+
+`HttpStatus.OK`라는 Http 상태코드를 반환해주는 Controller이다.
+
+<br>
+
+아래 글은 `ResponseEntity`에 대해 공부하면서 정리한 글이다. 혹시 궁금하다면 참고 바란다.
+
+[[Spring Boot] HttpEntiy, ResponseEntity 란?](https://myeongdev.tistory.com/37)
 
 
-mulipart/form-data바이너리 데이터를 효율적으로 전송할 수 있습니다.form의 속성중 (이미지나 파일 전송 시) enctype이 반드시 'multipart/form-data'형 이어여만 합니다.
+### 실행 결과
 
+![image](https://user-images.githubusercontent.com/73057935/172329673-323d8535-c753-4e11-ab84-84679f978c29.png)
 
+<br> 
+
+위의 사진은 에디터에 image toolbar를 클릭하여 사진을 첨부한 모습이고,
+
+<br>
+
+![image](https://user-images.githubusercontent.com/73057935/172330389-fe0810ec-b5bd-40d6-9688-d0d223035283.png)
+
+아래는 성공적으로 DB에 저장된 모습이다.
+
+<br>
+<br>
+
+이상으로 글을 마치겠다.

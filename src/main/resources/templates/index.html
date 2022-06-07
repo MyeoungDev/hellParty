@@ -239,10 +239,28 @@
                 </div>
         </div>
 
-        
-
 
     </div>
-    
+
+
+<script th:inline="javascript">
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        let registerResult = [[${register_result}]];
+        console.log(registerResult);
+
+        if (registerResult === '' || registerResult === null) {
+            return;
+        }
+
+        alert("게시글 등록이 완료되었습니다!");
+
+
+
+    });
+
+
+</script>
 </body>
 </html>

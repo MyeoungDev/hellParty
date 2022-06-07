@@ -90,17 +90,6 @@ public class UserController {
             // map.keySet() -> 모든 key값을 갖고온다.
             // 그 갖고온 키로 반복문을 통해 키와 에러 메세지로 매핑
 
-            Map<String, String> validateMap = new HashMap<>();
-
-            for (FieldError error : errors.getFieldErrors()) {
-                String validKeyName = "valid_" + error.getField();
-                validateMap.put(validKeyName, error.getDefaultMessage());
-            }
-
-            for (String key1 : validateMap.keySet()) {
-                model.addAttribute(key1, validateMap.get(key1));
-            }
-
             for (String key : validateResult.keySet()) {
                 // ex) model.addAtrribute("valid_id", "아이디는 필수 입력사항 입니다.")
                 model.addAttribute(key, validateResult.get(key));
