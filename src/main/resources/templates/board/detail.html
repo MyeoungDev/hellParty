@@ -15,6 +15,9 @@
 
     <!-- FontAwesome -->
     <script src="https://kit.fontawesome.com/1811ec3902.js" crossorigin="anonymous"></script>
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 </head>
 <body>
 
@@ -41,16 +44,16 @@
                 <p class="board_title" th:text="${boardDTO.title}">제목입니다.제목입니다.제목입니다.제목입니다.제목입니다.제목입니다.제목입니다.</p>
                 <div class="board_writer_container">
                     <i class="fa-solid fa-dumbbell"></i>
-                    <p class="board_writer">작성자</p>
+                    <p class="board_writer" th:text="${boardDTO.userId}">작성자</p>
                     <p class="board_wirter_line">|</p>
-                    <p class="board_date">2022.06.06</p>
+                    <p class="board_date" th:text="${#dates.format(boardDTO.regDate, 'yyyy.MM.dd')}">2022.06.06</p>
                 </div>
             </div>
 
 
             <div class="board_columns_column area">
                 <p class="board_text">운동 지역<span> : </span></p>
-                <p class="board_area">광주</p>
+                <p class="board_area" th:text="${boardDTO.area}">광주</p>
             </div>
 
 
@@ -63,7 +66,7 @@
 
             <div class="board_columns_column openTalk">
                 <p class="board_text openTalk">카카오톡 오픈채팅<span> : </span></p>
-                <p id="openTalk_link">https://open.kakao.com/o/gyvuT5Yd</p>
+                <p id="openTalk_link" th:text="${boardDTO.openLink}">https://open.kakao.com/o/gyvuT5Yd</p>
                 <!-- <input type="text" name="" id="openTalk_link" placeholder="오픈카톡 링크"> -->
             </div>
         </div>
@@ -71,16 +74,21 @@
 
     <div class="comment">
         <div class="comment_columns">
-            <p class="comment_text">2개의 댓글이 있습니다.</p>
+            <p class="comment_text"><span></span>개의 댓글이 있습니다.</p>
         </div>
 
+        <form id="comment_form" name="comment_form" action="/comment/register" method="post">
         <div class="comment_columns">
-            <textarea name="comment_input" id="comment_input"  placeholder="댓글을 입력하세요" cols="30" rows="10"></textarea>
+            <input type="hidden" name="boardIdx" th:value="${boardDTO.boardIdx}"/>
+            <textarea name="content" id="comment_input"  placeholder="댓글을 입력하세요" cols="30" rows="10"></textarea>
         </div>
 
         <div class="comment_columns button">
-            <button type="submit" class="comment_button">댓글 등록</button>
+            <button type="button" class="comment_button">댓글 등록</button>
         </div>
+        </form>
+
+        <div class="comment_container">
 
         <div class="comment_columns content">
             <div class="comment_columns_column">
@@ -95,32 +103,10 @@
             </div>
         </div>
 
-        <div class="comment_columns content">
-            <div class="comment_columns_column">
-                <i class="fa-solid fa-dumbbell"></i>
-                <div class="comment_writer_box">
-                    <p class="comment_writer">작성자</p>
-                    <p class="comment_date">2022-06-06 23:15:21</p>
-                </div>
-            </div>
-            <div class="comment_columns_column content">
-                <p class="comment_content_text">댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.</p>
-            </div>
-        </div>
 
-        <div class="comment_columns content">
-            <div class="comment_columns_column">
-                <i class="fa-solid fa-dumbbell"></i>
-                <div class="comment_writer_box">
-                    <p class="comment_writer">작성자</p>
-                    <p class="comment_date">2022-06-06 23:15:21</p>
-                </div>
-            </div>
-            <div class="comment_columns_column content">
-                <p class="comment_content_text">댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.댓글 입니다.</p>
-            </div>
+
+
         </div>
-    </div>
 
 
 </div>
@@ -147,6 +133,126 @@
     }
 
     quilljsediterInit();
+
+
+    /* 댓글 리스트 가져오기 */
+    document.addEventListener("DOMContentLoaded", function () {
+        printCommentList();
+    });
+
+    function printCommentList() {
+
+        let boardIdx = [[${boardDTO.boardIdx}]];
+
+        let session = [[${loginUser}]];
+        let sessionId = null;
+
+        console.log("session is null? " + session);
+
+        if (session !== null) {
+            sessionId = session.userId;
+            console.log("loginUser ID " + session.userId);
+        } else {
+            sessionId = null;
+            console.log("sessionId null" + sessionId);
+        }
+
+        $.ajax({
+            type: 'get',
+            url: '/comment/' + boardIdx,
+            success: function (res) {
+                console.log(res);
+                console.log("Array.isArray() " + Array.isArray(res))
+                if (res.length !== 0) {
+                    console.log("true");
+                    console.log("res[0]" + res[0].commentIdx);
+                    console.log("res.length" + res.length);
+
+                    let commentHTML = "";
+
+                    for (let i = 0; i < res.length; i++) {
+                        console.log(`res[i].userId : ${res[i].userId}`);
+                        console.log(`res[i].commentIdx : ${res[i].commentIdx}`);
+
+                        commentHTML += `
+                        <div class="comment_columns content">
+                            <div class="comment_columns_column">
+                                <i class="fa-solid fa-dumbbell"></i>
+                                <div class="comment_writer_box">
+                                    <p class="comment_writer">${res[i].userId}</p>
+                                    <p class="comment_date">${res[i].regDate}</p>
+                                </div>
+                                ${sessionId === res[i].userId ?
+                                    `<i class="fa-regular fa-circle-xmark" id="comment_deleteBtn" data-idx="${res[i].commentIdx}" onclick="commentDeleteFunc(this.dataset.idx)" ></i>` : ``}
+                            </div>
+                            <div class="comment_columns_column content">
+                                <p class="comment_content_text">${res[i].content}</p>
+                            </div>
+                        </div>
+                        `
+
+                        $(".comment_container").html(commentHTML);
+
+                        $(".comment_text span").html(res.length);
+                    }
+
+                } else {
+                    console.log("false");
+                    $(".comment_container").html("");
+                    $(".comment_text span").html(0);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    /* 댓글 등록 */
+
+    document.querySelector(".comment_button").addEventListener("click", function () {
+
+        let data = $('[name=comment_form]').serialize();
+
+        $.ajax({
+            type: 'post',
+            url: '/comment/register',
+            data: data,
+            success: function (res) {
+                console.log(res);
+                document.querySelector("#comment_input").value = "";
+                printCommentList();
+                alert("댓글을 등록하였습니다!")
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+    });
+
+    /* 댓글 삭제 */
+    function commentDeleteFunc(commentIdx) {
+        commentIdx = parseInt(commentIdx);
+
+        console.log(typeof commentIdx);
+
+        console.log("Delete Btn commentIdx " + commentIdx);
+        let deleteConfirm = confirm("댓글을 삭제 하시겠습니까?");
+        if (deleteConfirm) {
+            $.ajax({
+                type: 'post',
+                url: '/comment/delete',
+                data: {"commentIdx": commentIdx},
+                success: function () {
+                    printCommentList();
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+        }
+    }
+
 
 </script>
 

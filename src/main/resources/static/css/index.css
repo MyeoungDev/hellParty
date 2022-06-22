@@ -131,7 +131,7 @@
 
 .board_columns_column{
     width: 349px;
-    height: 280px;
+    height: 350px;
     border-radius: 20px;
     padding: 25px;
     display: flex;
@@ -183,6 +183,23 @@
     margin-top: 2px;
 }
 
+/* title_user_box */
+
+.title_user_box{
+    display: flex;
+    align-items: center;
+}
+
+.title_user_box i{
+    font-size: 24px;
+    margin-right: 10px;
+    color: #e82d00;
+}
+
+.title_user{
+    font-size: 20px;
+    margin-bottom: 2px;
+}
 
 @media (max-width: 1430px) {
     .board_columns{

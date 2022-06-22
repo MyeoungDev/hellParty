@@ -231,3 +231,10 @@
 .ql-container.ql-snow.ql-disabled{
     border: none;
 }
+
+
+#comment_deleteBtn {
+    font-size: 20px;
+    margin-left: 20px;
+    cursor: pointer;
+}

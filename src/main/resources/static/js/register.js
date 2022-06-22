@@ -1,19 +1,20 @@
 /* Validation */
 
 let titleCk = false;
-let titleInput = document.querySelector("input[name=title]").value;
 
 let areaCk = false;
-let areaInput =  document.querySelector("#dropdown_btn").value;
 
 let contentCk = false;
 
 let openLinkCk = false;
-let openLinkInput = document.querySelector("input[name=openLink]").value;
 
 
 const register_btn = document.querySelector(".register_submit");
 register_btn.addEventListener("click", function () {
+
+    let titleInput = document.querySelector("input[name=title]").value;
+    let areaInput = document.querySelector("#dropdown_btn").value;
+    let openLinkInput = document.querySelector("input[name=openLink]").value;
 
     if (titleInput === '') {
         titleCk = false;

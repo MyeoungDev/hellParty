@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -21,7 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -46,9 +44,7 @@ public class BoardController {
         return "board/register";
     }
 
-    /* TODO -> detail view 제목, 지역, 카톡링크 구현하기  */
-    /* TODO -> index 에서 해당 게시글들 보이게 표시하기 */
-    /* TODO -> 위의 모든 사항 구현 후 댓글 기능 구현하기 */
+    /* TODO -> index 에서 해당 게시글들 보이게 표시하기  -> 이거는 댓글 기능까지 구현하고, 메인 페이지 무한 스크롤로 구현하기 */
 
     @PostMapping(value = "/register.do")
     public String registerPOST(HttpServletRequest request, BoardDTO boardDTO, RedirectAttributes rttr) {
@@ -164,12 +160,18 @@ public class BoardController {
     }
 
     @GetMapping(value = "/detail")
-    public void detailGET(@RequestParam(name = "boardIdx") int boardIdx, Model model) {
+    public void detailGET(@RequestParam(name = "boardIdx") int boardIdx,
+                          @SessionAttribute(name = "loginUser", required = false)UserDTO loginUser,
+                          Model model) {
         log.info("Controller detailGET");
         BoardDTO boardDTO = boardService.boardDetail(boardIdx);
 
+        model.addAttribute("loginUser", loginUser);
+        log.info("loginUser Test" +  loginUser);
         model.addAttribute("boardDTO", boardDTO);
     }
+
+
 
 
 }
