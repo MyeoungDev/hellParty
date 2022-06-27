@@ -12,4 +12,7 @@ public interface BoardMapper {
     /* detail view */
     public BoardDTO boardDetail(int boardIdx);
 
+    /* 조회수 증가 */
+    public void boardViewCount(int boardIdx);
+
 }

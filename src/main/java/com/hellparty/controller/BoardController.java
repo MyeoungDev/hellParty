@@ -18,7 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -160,8 +162,10 @@ public class BoardController {
     }
 
     @GetMapping(value = "/detail")
-    public void detailGET(@RequestParam(name = "boardIdx") int boardIdx,
+    public String detailGET(@RequestParam(name = "boardIdx") int boardIdx,
                           @SessionAttribute(name = "loginUser", required = false)UserDTO loginUser,
+                          HttpServletRequest request,
+                          HttpServletResponse response,
                           Model model) {
         log.info("Controller detailGET");
         BoardDTO boardDTO = boardService.boardDetail(boardIdx);
@@ -169,6 +173,31 @@ public class BoardController {
         model.addAttribute("loginUser", loginUser);
         log.info("loginUser Test" +  loginUser);
         model.addAttribute("boardDTO", boardDTO);
+
+
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                log.info("cookie.getName " + cookie.getName());
+                log.info("cookie.getValue " + cookie.getValue());
+
+                if (!cookie.getValue().contains(request.getParameter("boardIdx"))) {
+                    cookie.setValue(cookie.getValue() + "_" + request.getParameter("boardIdx"));
+                    cookie.setMaxAge(60 * 60 * 2);
+                    response.addCookie(cookie);
+                    boardService.boardViewCount(boardIdx);
+                }
+            }
+        } else {
+            Cookie newCookie = new Cookie("visit_cookie", request.getParameter("boardIdx"));
+            newCookie.setMaxAge(60 * 60 * 2);
+            response.addCookie(newCookie);
+            boardService.boardViewCount(boardIdx);
+        }
+
+        return "/board/detail";
+
     }
 
 

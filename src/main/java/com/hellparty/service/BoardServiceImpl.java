@@ -24,5 +24,11 @@ public class BoardServiceImpl implements BoardService {
         log.info("Service boardDetail");
         return boardMapper.boardDetail(boardIdx);
     }
+
+    @Override
+    public void boardViewCount(int boardIdx) {
+        log.info("Service boardViewCount");
+        boardMapper.boardViewCount(boardIdx);
+    }
 }
 

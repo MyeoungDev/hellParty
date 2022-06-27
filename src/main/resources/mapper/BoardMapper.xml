@@ -11,4 +11,10 @@
         WHERE boardIdx = #{boardIdx}
     </select>
 
+    <update id="boardViewCount">
+        UPDATE hellparty_board
+        SET viewCount = viewCount + 1
+        WHERE boardIdx = #{boardIdx}
+    </update>
+
 </mapper>

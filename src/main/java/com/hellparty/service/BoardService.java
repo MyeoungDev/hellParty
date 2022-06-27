@@ -10,5 +10,7 @@ public interface BoardService {
     /* 글 조회 */
     public BoardDTO boardDetail(int boardIdx);
 
+    /* 조회수 증가 */
+    public void boardViewCount(int boardIdx);
 
 }
