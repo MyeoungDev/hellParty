@@ -17,4 +17,17 @@
         WHERE boardIdx = #{boardIdx}
     </update>
 
+    <select id="heartFind" resultType="boolean">
+        SELECT * FROM hellparty_heart
+        WHERE userIdx = #{userIdx} AND boardIdx = #{boardIdx}
+    </select>
+
+    <insert id="heartInsert">
+        INSERT INTO hellparty_heart(userIdx, boardIdx) VALUES(#{userIdx},#{boardIdx})
+    </insert>
+
+    <delete id="heartDelete">
+        DELETE FROM hellparty_heart WHERE userIdx = #{userIdx} AND boardIdx = #{boardIdx}
+    </delete>
+
 </mapper>

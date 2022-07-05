@@ -43,10 +43,18 @@
             <div class="board_columns_column title">
                 <p class="board_title" th:text="${boardDTO.title}">제목입니다.제목입니다.제목입니다.제목입니다.제목입니다.제목입니다.제목입니다.</p>
                 <div class="board_writer_container">
+                    <div class="writer_container_column">
                     <i class="fa-solid fa-dumbbell"></i>
                     <p class="board_writer" th:text="${boardDTO.userId}">작성자</p>
                     <p class="board_wirter_line">|</p>
                     <p class="board_date" th:text="${#dates.format(boardDTO.regDate, 'yyyy.MM.dd')}">2022.06.06</p>
+                    </div>
+                    <div class="writer_container_column icon_box">
+                        <i class="fa-regular fa-eye"></i>
+                        <p class="board_view">329</p>
+                        <i class="fa-solid fa-heart"></i>
+                        <i class="fa-regular fa-heart"></i>
+                    </div>
                 </div>
             </div>
 

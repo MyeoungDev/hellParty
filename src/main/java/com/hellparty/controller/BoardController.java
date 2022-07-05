@@ -196,6 +196,11 @@ public class BoardController {
             boardService.boardViewCount(boardIdx);
         }
 
+        /* TODO -> userIdx로 findHeart parameter(userIdx, boardIdx) 해서 false or true를 반환 받아서
+        *   View에 보내서 true이면 꽉찬 한트, false이면 빈 하트 출력하기?
+        *   해야 될 기능으로는 하트 추가(insert), 삭제(delete), 조회(select) 세가지 기능?
+        *   */
+
         return "/board/detail";
 
     }

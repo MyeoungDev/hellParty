@@ -32,4 +32,27 @@ class BoardMapperTest {
         int boardIdx = 1;
         boardMapper.boardDetail(boardIdx);
     }
+
+    @Test
+    public void heartInsert() {
+        int userIdx = 2;
+        int boardIdx = 2;
+        boardMapper.heartInsert(userIdx, boardIdx);
+    }
+
+    @Test
+    public void heartFind() {
+        int userIdx = 2;
+        int boardIdx = 2;
+        boolean i = boardMapper.heartFind(userIdx, boardIdx);
+        System.out.println("=======result========" + i);
+    }
+
+    @Test
+    public void heartDelete() {
+        int userIdx = 2;
+        int boardIdx = 2;
+        boardMapper.heartDelete(userIdx, boardIdx);
+
+    }
 }

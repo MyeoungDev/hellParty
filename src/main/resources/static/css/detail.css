@@ -25,13 +25,33 @@
 }
 
 .board_writer_container{
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     height: 35px;
     margin-top: 40px;
     margin-left: 10px;
 }
 
+.writer_container_column{
+    display: flex;
+    align-items: center;
+}
+
+.writer_container_column.icon_box p{
+    margin-left: 5px;
+}
+
+.writer_container_column.icon_box i{
+    font-size: 22px;
+    margin-left: 15px;
+}
+
+.writer_container_column.icon_box .fa-heart{
+    color: red;
+    font-size: 30px;
+}
 
 .board_columns_column.area{
     margin-top: 15px;
